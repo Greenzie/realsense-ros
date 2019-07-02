@@ -1,0 +1,15 @@
+Source: ros-melodic-realsense2-description
+Section: embedded
+Priority: optional
+Maintainer: Nick Black <dankamongmen@gmail.com>
+Build-Depends: debhelper (>= 11), ros-melodic-roscpp
+Standards-Version: 4.1.2
+Homepage: http://wiki.ros.org/RealSense
+Vcs-Git: https://github.com/IntelRealSense/realsense-ros.git
+Vcs-Browser: https://github.com/IntelRealSense/realsense-ros
+
+Package: ros-melodic-realsense2-description
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Intel Realsense camera descriptions
+ RealSense Camera description package for Intel 3D D400 cameras.
