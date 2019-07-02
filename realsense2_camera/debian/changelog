@@ -1,0 +1,5 @@
+ros-melodic-realsense2-camera (22.6-1-bionic1) bionic; urgency=medium
+
+  * Initial release
+
+ -- nick black <dankamongmen@gmail.com>  Tue, 02 Jul 2019 05:31:00 -0400
