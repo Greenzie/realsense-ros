@@ -1,6 +1,8 @@
 # ROS Wrapper for Intel&reg; RealSense&trade; Devices
 These are packages for using Intel RealSense cameras (D400 series SR300 camera and T265 Tracking Module) with ROS.
 
+LibRealSense supported version: v2.25.0 (see [realsense2_camera release notes](https://github.com/IntelRealSense/realsense-ros/releases))
+
 ## Installation Instructions
 
 The following instructions support ROS Indigo, on **Ubuntu 14.04**, and ROS Kinetic, on **Ubuntu 16.04**.
@@ -11,7 +13,7 @@ The following instructions support ROS Indigo, on **Ubuntu 14.04**, and ROS Kine
 - #### Install from [Debian Package](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages) - In that case treat yourself as a developer. Make sure you follow the instructions to also install librealsense2-dev and librealsense-dkms packages.
 
 #### OR
-- #### Build from sources by downloading the latest [Intel&reg; RealSense&trade; SDK 2.0](https://github.com/IntelRealSense/librealsense/releases/tag/v2.24.0) and follow the instructions under [Linux Installation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
+- #### Build from sources by downloading the latest [Intel&reg; RealSense&trade; SDK 2.0](https://github.com/IntelRealSense/librealsense/releases/tag/v2.25.0) and follow the instructions under [Linux Installation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
 
 ### Step 2: Install the ROS distribution
 - #### Install [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu), on Ubuntu 16.04
@@ -73,6 +75,7 @@ After running the above command with D435i attached, the following list of topic
 - /camera/gyro/sample
 - /camera/accel/imu_info
 - /camera/accel/sample
+- /diagnostics
 
 The "/camera" prefix is the default and can be changed. Check the rs_multiple_devices.launch file for an example.
 If using D435 or D415, the gyro and accel topics wont be available. Likewise, other topics will be available when using T265 (see below).
@@ -111,6 +114,8 @@ Setting *unite_imu_method* creates a new topic, *imu*, that replaces the default
 - **hold_back_imu_for_frames**: Images processing takes time. Therefor there is a time gap between the moment the image arrives at the wrapper and the moment the image is published to the ROS environment. During this time, Imu messages keep on arriving and a situation is created where an image with earlier timestamp is published after Imu message with later timestamp. If that is a problem, setting *hold_back_imu_for_frames* to *true* will hold the Imu messages back while processing the images and then publish them all in a burst, thus keeping the order of publication as the order of arrival. Note that in either case, the timestamp in each message's header reflects the time of it's origin.
 - **topic_odom_in**: For T265, add wheel odometry information through this topic. The code refers only to the *twist.linear* field in the message.
 - **calib_odom_file**: For the T265 to include odometry input, it must be given a [configuration file](https://github.com/IntelRealSense/librealsense/blob/master/unit-tests/resources/calibration_odometry.json). Explanations can be found [here](https://github.com/IntelRealSense/librealsense/pull/3462). The calibration is done in ROS coordinates system.
+- **publish_tf**: boolean, publish or not TF at all. Defaults to True.
+- **tf_publish_rate**: double, positive values mean dynamic transform publication with specified rate, all other values mean static transform publication. Defaults to 0 
 - **publish_odom_tf**: If True (default) publish TF from odom_frame to pose_frame.
 
 
