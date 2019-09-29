@@ -1,3 +1,9 @@
+ros-melodic-realsense2-camera (2.2.8-bionic3) unstable; urgency=medium
+
+  * Rebuild against realsense2 2.29
+
+ -- Nick Black <dankamongmen@gmail.com>  Sun, 29 Sep 2019 10:09:06 -0400
+
 ros-melodic-realsense2-camera (2.2.8-bionic2) unstable; urgency=medium
 
   * Make sure we're building realsense-description
