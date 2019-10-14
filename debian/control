@@ -15,7 +15,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  ros-melodic-cv-bridge, ros-melodic-nav-msgs, ros-melodic-nodelet,
  ros-melodic-roscpp, ros-melodic-genmsg, ros-melodic-sensor-msgs,
  ros-melodic-message-runtime, ros-melodic-tf, ros-melodic-std-msgs,
- ros-melodic-diagnostic-updater
+ ros-melodic-diagnostic-updater, libimage-transport-dev
 Description: Intel RealSense camera ROS package
  These are packages for using Intel RealSense cameras (D400 series
  SR300 camera and T265 Tracking Module) with ROS.

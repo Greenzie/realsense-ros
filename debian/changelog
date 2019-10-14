@@ -1,3 +1,9 @@
+ros-melodic-realsense2-camera (2.2.8-bionic4) bionic; urgency=medium
+
+  * Add dependency on libimage-transport-dev
+
+ -- Nick Black <dankamongmen@gmail.com>  Mon, 14 Oct 2019 06:23:03 -0400
+
 ros-melodic-realsense2-camera (2.2.8-bionic3) unstable; urgency=medium
 
   * Rebuild against realsense2 2.29
