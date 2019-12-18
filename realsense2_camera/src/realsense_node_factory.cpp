@@ -76,7 +76,7 @@ void RealSenseNodeFactory::getDevice(rs2::device_list list)
 				}
 				else// if(strcmp(name, "Intel RealSense D435") == 0)
 				{
-					self_regex = std::regex("[^ ]*?usb[0-9]+/([0-9.-]+)/[^ ]*", std::regex_constants::ECMAScript);
+					self_regex = std::regex("[^ ]+/usb[0-9]+[0-9./-]*/([0-9.-]+):[^ ]*", std::regex_constants::ECMAScript);
 				}
 				std::smatch base_match;
 				bool found_usb_desc = std::regex_match(pn, base_match, self_regex);
@@ -226,6 +226,7 @@ void RealSenseNodeFactory::onInit()
 				cfg.enable_all_streams();
 				pipe->start(cfg); //File will be opened in read mode at this point
 				_device = pipe->get_active_profile().get_device();
+				_serial_no = _device.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER);
 				_realSenseNode = std::unique_ptr<BaseRealSenseNode>(new BaseRealSenseNode(nh, privateNh, _device, _serial_no));
 			}
 			if (_device)
