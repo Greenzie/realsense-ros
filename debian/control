@@ -3,7 +3,8 @@ Section: embedded
 Priority: optional
 Maintainer: nick black <dankamongmen@gmail.com>
 Build-Depends: debhelper (>= 11), ros-melodic-ddynamic-reconfigure,
- ros-melodic-catkin, ros-melodic-cmake-modules, librealsense2-dev
+ ros-melodic-catkin, ros-melodic-cmake-modules,
+ librealsense2-dev (= 2.33.1-0~realsense0.2044),
 Standards-Version: 4.1.3
 Homepage: https://github.com/IntelRealSense/realsense-ros
 Vcs-Git: https://github.com/IntelRealSense/realsense-ros.git
@@ -16,7 +17,8 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  ros-melodic-roscpp, ros-melodic-genmsg, ros-melodic-sensor-msgs,
  ros-melodic-message-runtime, ros-melodic-tf, ros-melodic-std-msgs,
  ros-melodic-diagnostic-updater, libimage-transport-dev,
- librealsense2-dkms, librealsense2-utils 
+ librealsense2-dkms (= 2.33.1-0~realsense0.2044), 
+ librealsense2-utils (= 2.33.1-0~realsense0.2044), 
 Description: Intel RealSense camera ROS package
  These are packages for using Intel RealSense cameras (D400 series
  SR300 camera and T265 Tracking Module) with ROS.

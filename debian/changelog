@@ -1,3 +1,9 @@
+ros-melodic-realsense2-camera (2.2.13-2ubuntu) bionic; urgency=medium
+
+  * pin librealsense depends version
+
+ -- Alec Graves <alec@greenzie.com>  Wed, 11 Mar 2020 10:15:19 -0400
+
 ros-melodic-realsense2-camera (2.2.13-1ubuntu) bionic; urgency=medium
 
   * 2.2.13
