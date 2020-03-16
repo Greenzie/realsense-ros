@@ -18,7 +18,8 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  ros-melodic-message-runtime, ros-melodic-tf, ros-melodic-std-msgs,
  ros-melodic-diagnostic-updater, libimage-transport-dev,
  librealsense2-dkms (= 1.3.13-0ubuntu1), 
- librealsense2-utils (= 2.33.1-0~realsense0.2044), 
+ librealsense2-utils (= 2.33.1-0~realsense0.2044),
+ librealsense2-dev (= 2.33.1-0~realsense0.2044)
 Description: Intel RealSense camera ROS package
  These are packages for using Intel RealSense cameras (D400 series
  SR300 camera and T265 Tracking Module) with ROS.
