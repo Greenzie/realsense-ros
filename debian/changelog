@@ -1,3 +1,9 @@
+ros-melodic-realsense2-camera (2.2.13-1) bionic; urgency=medium
+
+  * New upstream release 2.2.13 against realsense 2.33.1
+
+ -- Charles Brian Quinn <cbq@greenzie.com>  Mon, 16 Mar 2020 15:21:57 -0500
+
 ros-melodic-realsense2-camera (2.2.12-1) bionic; urgency=medium
 
   * New upstream release 2.2.12 against realsense 2.32
