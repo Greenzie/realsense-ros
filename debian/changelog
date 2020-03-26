@@ -1,3 +1,10 @@
+ros-melodic-realsense2-camera (102.2.13-bionic1) bionic; urgency=medium
+
+  * Bump high version to prevent community versions
+  * Add a build depend (but not a depend for install) on -dev package
+
+ -- Charles Brian Quinn <cbq@greenzie.com>  Thu, 26 Mar 2020 11:08:04 -0400
+
 ros-melodic-realsense2-camera (2.2.13-1) bionic; urgency=medium
 
   * New upstream release 2.2.13 against realsense 2.33.1
