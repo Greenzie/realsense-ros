@@ -1,3 +1,47 @@
+# Fork of ROS Wrapper for Greenzie to install more performant version
+
+The only difference between this fork and the upstream is that we build against librealsense2, librealsense2-dkms, librealsense-udev-rules, and librealsense2-dev to create our own package with a very high version number to ensure ours is installed over any alternatives. The upstream community ROS package ("ROS distribution") uses an "older" and less performant library (see below).
+
+To build and update our version:
+
+Add the upstream and fetch:
+
+```
+git add upstream https://github.com/IntelRealSense/realsense-ros.git
+git fetch upstream
+```
+
+Check out this forks local development branch (they don't use master):
+
+```
+git merge upstream/development
+```
+
+Make sure you have the `librealsense2-dev` installed (and of course the ones below).
+
+Grab the same debs you're building against:
+
+```
+apt download librealsense2
+apt download librealsense2-dkms
+apt download librealsense2-udev-rules
+```
+
+To build we use our circleci as a reference and our own debian folder:
+
+```
+DEB_BUILD_OPTIONS="noddebs" debuild --no-tgz-check -b --no-sign --lintian-opts --suppress-tags dir-or-file-in-opt
+```
+
+After building, back out a directory and your debs are there:
+
+```
+ros-melodic-realsense2-camera_102.2.13-bionic1_amd64.deb
+ros-melodic-realsense2-description_102.2.13-bionic1_amd64.deb
+```
+
+Now put all these on our apt server for distribution.
+
 # ROS Wrapper for Intel&reg; RealSense&trade; Devices
 These are packages for using Intel RealSense cameras (D400 series SR300 camera and T265 Tracking Module) with ROS.
 
