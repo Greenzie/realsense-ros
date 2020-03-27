@@ -2,6 +2,24 @@
 
 The only difference between this fork and the upstream is that we build against librealsense2, librealsense2-dkms, librealsense-udev-rules, and librealsense2-dev to create our own package with a very high version number to ensure ours is installed over any alternatives. The upstream community ROS package ("ROS distribution") uses an "older" and less performant library (see below).
 
+To begin, add
+[Intel's librealsense Debian package server](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages)
+to your sources
+
+### Update:
+
+    ./update.sh
+
+### Build 
+
+    ./build.sh
+
+### Deploy
+
+deploy `alldebs.tar`
+
+### Manual Update and Build Process
+
 To build and update our version:
 
 Add the upstream and fetch:
