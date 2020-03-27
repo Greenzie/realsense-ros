@@ -36,7 +36,10 @@ cp $build_dir/*.deb artifacts
 rm -rf $build_dir
 
 echo "Building RealSense tarball..."
-ls artifacts
-tar -cvf ./alldebs.tar artifacts/*.deb
+cd artifacts
+ls
+tar -cvf ./alldebs.tar *.deb
+mv alldebs.tar ..
+cd ..
 
 echo "alldebs.tar with realsense files created."
