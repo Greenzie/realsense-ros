@@ -6,3 +6,6 @@
 .idea/
 .vs/
 *.json
+
+artifacts/
+alldebs.tar
