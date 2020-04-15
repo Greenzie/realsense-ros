@@ -1,3 +1,9 @@
+ros-melodic-realsense2-camera (102.2.13-bionic3) bionic; urgency=medium
+
+  * Version bump new lib version 2.34.0
+
+ -- Alec Graves <alec@greenzie.com>  Wed, 15 Apr 2020 14:52:14 -0400
+
 ros-melodic-realsense2-camera (102.2.13-bionic2) bionic; urgency=medium
 
   * Version bump
