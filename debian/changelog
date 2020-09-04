@@ -1,3 +1,9 @@
+ros-melodic-realsense2-camera (102.2.13-bionic5) bionic; urgency=medium
+
+  * Version bump to patch urdf
+
+ -- alec <alec@greenzie.com>  Fri, 04 Sep 2020 14:32:42 -0400
+
 ros-melodic-realsense2-camera (102.2.13-bionic4) bionic; urgency=medium
 
   * Version bump

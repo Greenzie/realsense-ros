@@ -6,7 +6,7 @@ realsense_dir=$(pwd)
 
 echo "Uninstalling any existing realsense libraries..."
 sudo apt-get remove -y librealsense2 librealsense2-dev librealsense2-dkms
-{ sudo apt-get remove ros-melodic-realsense2-camera ros-melodic-realsense2-description ros-melodic-librealsense2; } || { echo; }
+{ sudo apt-get remove -y ros-melodic-realsense2-camera ros-melodic-realsense2-description ros-melodic-librealsense2; } || { echo; }
 
 echo "Download up-to-date librealsense2..."
 { echo "removing old ./artifacts..." && rm -rf ./artifacts; } || { echo "./artifacts/ does not exist... creating."; }
