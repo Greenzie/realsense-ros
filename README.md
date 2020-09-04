@@ -63,35 +63,68 @@ Now put all these on our apt server for distribution.
 # ROS Wrapper for Intel&reg; RealSense&trade; Devices
 These are packages for using Intel RealSense cameras (D400 series SR300 camera and T265 Tracking Module) with ROS.
 
-LibRealSense supported version: v2.33.1 (see [realsense2_camera release notes](https://github.com/IntelRealSense/realsense-ros/releases))
+LibRealSense supported version: v2.37.0 (see [realsense2_camera release notes](https://github.com/IntelRealSense/realsense-ros/releases))
 
 ## Installation Instructions
 
+### Ubuntu
 The following instructions are written for ROS Kinetic, on **Ubuntu 16.04** but apply to ROS Melodic on **Ubuntu 18.04** as well, by replacing kinetic with melodic wherever is needed.
 
-   ### Step 1: Install the ROS distribution
+   #### Step 1: Install the ROS distribution
    - #### Install [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu), on Ubuntu 16.04 or [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu) on Ubuntu 18.04.
+
+### Windows
+   #### Step 1: Install the ROS distribution
+   - #### Install [ROS Melodic or later on Windows 10](https://wiki.ros.org/Installation/Windows)
 
 
 ### There are 2 sources to install realsense2_camera from:
 
 * ### Method 1: The ROS distribution:
+
+  *Ubuntu*
+
     realsense2_camera is available as a debian package of ROS distribution. It can be installed by typing:
     
-    `sudo apt-get install ros-kinetic-realsense2-camera`
+    ```
+    export ROS_VER=kinetic 
+    ```
+    or
+    ```
+    export ROS_VER=melodic 
+    ```
+    
+    Then install the ros packages using the environment variable created above:
+    
+    ```sudo apt-get install ros-$ROS_VER-realsense2-camera```
 
     This will install both realsense2_camera and its dependents, including librealsense2 library.
 
     Notice:
     * The version of librealsense2 is almost always behind the one availeable in RealSense&trade; official repository.
     * librealsense2 is not built to use native v4l2 driver but the less stable RS-USB protocol. That is because the last is more general and operational on a larger variety of platforms.
+    * realsense2_description is available as a separate debian package of ROS distribution. It includes the 3D-models of the devices and is necessary for running launch files that include these models (i.e. rs_d435_camera_with_model.launch). It can be installed by typing:
+    `sudo apt-get install ros-$ROS_VER-realsense2-description`
+
+  *Windows*
+
+    **Chocolatey distribution Coming soon**
 
 * ### Method 2: The RealSense&trade; distribution:
+     > This option is demonstrated in the [.travis.yml](https://github.com/intel-ros/realsense/blob/development/.travis.yml) file. It basically summerize the elaborate instructions in the following 2 steps:
 
-   #### This option is demonstrated in the [.travis.yml](https://github.com/intel-ros/realsense/blob/development/.travis.yml) file. It basically summerize the elaborate instructions in the following 2 steps:
 
    ### Step 1: Install the latest Intel&reg; RealSense&trade; SDK 2.0
-   - #### Install from [Debian Package](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages) - In that case treat yourself as a developer. Make sure you follow the instructions to also install librealsense2-dev and librealsense-dkms packages.
+
+    *Ubuntu*
+
+    * Install from [Debian Package](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages)
+      - In that case treat yourself as a developer. Make sure you follow the instructions to also install librealsense2-dev and librealsense-dkms packages.
+
+    *Windows* 
+    Install using vcpkg
+
+        `vcpkg install realsense2:x64-windows` 
 
    #### OR
    - #### Build from sources by downloading the latest [Intel&reg; RealSense&trade; SDK 2.0](https://github.com/IntelRealSense/librealsense/releases/tag/v2.33.1) and follow the instructions under [Linux Installation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
@@ -99,10 +132,17 @@ The following instructions are written for ROS Kinetic, on **Ubuntu 16.04** but 
 
    ### Step 2: Install Intel&reg; RealSense&trade; ROS from Sources
    - Create a [catkin](http://wiki.ros.org/catkin#Installing_catkin) workspace
+   *Ubuntu*
    ```bash
    mkdir -p ~/catkin_ws/src
    cd ~/catkin_ws/src/
    ```
+   *Windows*
+   ```batch
+   mkdir c:\catkin_wssrc
+   cd c:\catkin_ws\src
+   ```
+
    - Clone the latest Intel&reg; RealSense&trade; ROS from [here](https://github.com/intel-ros/realsense/releases) into 'catkin_ws/src/'
    ```bashrc
    git clone https://github.com/IntelRealSense/realsense-ros.git
@@ -111,7 +151,8 @@ The following instructions are written for ROS Kinetic, on **Ubuntu 16.04** but 
    cd ..
    ```
    - Make sure all dependent packages are installed. You can check .travis.yml file for reference.
-   - Specifically, make sure that the ros package *ddynamic_reconfigure* is installed. If *ddynamic_reconfigure* cannot be installed using APT, you may clone it into your workspace 'catkin_ws/src/' from [here](https://github.com/pal-robotics/ddynamic_reconfigure/tree/kinetic-devel) (Version 0.2.2)
+   - Specifically, make sure that the ros package *ddynamic_reconfigure* is installed. If *ddynamic_reconfigure* cannot be installed using APT or if you are using *Windows* you may clone it into your workspace 'catkin_ws/src/' from [here](https://github.com/pal-robotics/ddynamic_reconfigure/tree/kinetic-devel) (Version 0.2.2)
+
 
    ```bash
   catkin_init_workspace
@@ -119,8 +160,17 @@ The following instructions are written for ROS Kinetic, on **Ubuntu 16.04** but 
   catkin_make clean
   catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
   catkin_make install
+  ```
+
+  *Ubuntu*
+  ```bash
   echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
   source ~/.bashrc
+  ```
+
+  *Windows*
+  ```batch
+  devel\setup.bat
   ```
 
 ## Usage Instructions
@@ -188,9 +238,9 @@ The topics are of the form: ```/camera/aligned_depth_to_color/image_raw``` etc.
 - **odom_frame_id**: defines the origin coordinate system in ROS convention (X-Forward, Y-Left, Z-Up). pose topic defines the pose relative to that system.
 - **All the rest of the frame_ids can be found in the template launch file: [nodelet.launch.xml](./realsense2_camera/launch/includes/nodelet.launch.xml)**
 - **unite_imu_method**: The D435i and T265 cameras have built in IMU components which produce 2 unrelated streams: *gyro* - which shows angular velocity and *accel* which shows linear acceleration. Each with it's own frequency. By default, 2 corresponding topics are available, each with only the relevant fields of the message sensor_msgs::Imu are filled out.
-Setting *unite_imu_method* creates a new topic, *imu*, that replaces the default *gyro* and *accel* topics. Under the new topic, all the fields in the Imu message are filled out.
- - **linear_interpolation**: Each message contains the last original value of item A interpolated with the previous value of item A, combined with the last original value of item B on last item B's timestamp. Items A and B are accel and gyro interchangeably, according to which type recently arrived from the sensor. The idea is to give the most recent information, united and without repetitions.
- - **copy**: For each new message, accel or gyro, the relevant fields and timestamp are filled out while the others maintain the previous data.
+Setting *unite_imu_method* creates a new topic, *imu*, that replaces the default *gyro* and *accel* topics. The *imu* topic is published at the rate of the gyro. All the fields of the Imu message under the *imu* topic are filled out.
+ - **linear_interpolation**: Every gyro message is attached by the an accel message interpolated to the gyro's timestamp.
+ - **copy**: Every gyro message is attached by the last accel message.
 - **clip_distance**: remove from the depth image all values above a given value (meters). Disable by giving negative value (default)
 - **linear_accel_cov**, **angular_velocity_cov**: sets the variance given to the Imu readings. For the T265, these values are being modified by the inner confidence value.
 - **hold_back_imu_for_frames**: Images processing takes time. Therefor there is a time gap between the moment the image arrives at the wrapper and the moment the image is published to the ROS environment. During this time, Imu messages keep on arriving and a situation is created where an image with earlier timestamp is published after Imu message with later timestamp. If that is a problem, setting *hold_back_imu_for_frames* to *true* will hold the Imu messages back while processing the images and then publish them all in a burst, thus keeping the order of publication as the order of arrival. Note that in either case, the timestamp in each message's header reflects the time of it's origin.
