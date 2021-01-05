@@ -7,6 +7,7 @@
   <arg name="tf_prefix"           default="$(arg camera)"/>
   <arg name="external_manager"    default="false"/>
   <arg name="manager"             default="realsense2_camera_manager"/>
+  <arg name="output"              default="screen"/>
 
   <arg name="fisheye_width"       default="640"/>
   <arg name="fisheye_height"      default="480"/>
@@ -16,11 +17,17 @@
   <arg name="depth_height"        default="480"/>
   <arg name="enable_depth"        default="true"/>
 
-  <arg name="infra_width"        default="640"/>
-  <arg name="infra_height"       default="480"/>
+  <arg name="confidence_width"    default="640"/>
+  <arg name="confidence_height"   default="480"/>
+  <arg name="enable_confidence"   default="true"/>
+  <arg name="confidence_fps"      default="30"/>
+
+  <arg name="infra_width"         default="640"/>
+  <arg name="infra_height"        default="480"/>
   <arg name="enable_infra"        default="false"/>
   <arg name="enable_infra1"       default="false"/>
   <arg name="enable_infra2"       default="false"/>
+  <arg name="infra_rgb"           default="false"/>
 
   <arg name="color_width"         default="640"/>
   <arg name="color_height"        default="480"/>
@@ -60,6 +67,7 @@
       <arg name="tf_prefix"                value="$(arg tf_prefix)"/>
       <arg name="external_manager"         value="$(arg external_manager)"/>
       <arg name="manager"                  value="$(arg manager)"/>
+      <arg name="output"                   value="$(arg output)"/>
       <arg name="serial_no"                value="$(arg serial_no)"/>
       <arg name="usb_port_id"              value="$(arg usb_port_id)"/>
       <arg name="device_type"              value="$(arg device_type)"/>
@@ -79,15 +87,21 @@
       <arg name="depth_height"             value="$(arg depth_height)"/>
       <arg name="enable_depth"             value="$(arg enable_depth)"/>
 
+      <arg name="confidence_width"         value="$(arg confidence_width)"/>
+      <arg name="confidence_height"        value="$(arg confidence_height)"/>
+      <arg name="enable_confidence"        value="$(arg enable_confidence)"/>
+      <arg name="confidence_fps"           value="$(arg confidence_fps)"/>
+
       <arg name="color_width"              value="$(arg color_width)"/>
       <arg name="color_height"             value="$(arg color_height)"/>
       <arg name="enable_color"             value="$(arg enable_color)"/>
 
       <arg name="infra_width"              value="$(arg infra_width)"/>
       <arg name="infra_height"             value="$(arg infra_height)"/>
-      <arg name="enable_infra"            value="$(arg enable_infra)"/>
+      <arg name="enable_infra"             value="$(arg enable_infra)"/>
       <arg name="enable_infra1"            value="$(arg enable_infra1)"/>
       <arg name="enable_infra2"            value="$(arg enable_infra2)"/>
+      <arg name="infra_rgb"                value="$(arg infra_rgb)"/>
 
       <arg name="fisheye_fps"              value="$(arg fisheye_fps)"/>
       <arg name="depth_fps"                value="$(arg depth_fps)"/>
