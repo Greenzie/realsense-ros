@@ -10,7 +10,6 @@
 #include <condition_variable>
 #include <signal.h>
 #include <thread>
-#include <sys/time.h>
 #include <regex>
 
 using namespace realsense2_camera;
@@ -20,11 +19,31 @@ constexpr auto realsense_ros_camera_version = REALSENSE_ROS_EMBEDDED_VERSION_STR
 
 PLUGINLIB_EXPORT_CLASS(realsense2_camera::RealSenseNodeFactory, nodelet::Nodelet)
 
+std::string api_version_to_string(int version)
+{
+	std::ostringstream ss;
+	if (version / 10000 == 0)
+		ss << version;
+	else
+		ss << (version / 10000) << "." << (version % 10000) / 100 << "." << (version % 100);
+	return ss.str();
+}
+
 RealSenseNodeFactory::RealSenseNodeFactory():
 	_is_alive(true)
 {
+	rs2_error* e = nullptr;
+	std::string running_librealsense_version(api_version_to_string(rs2_get_api_version(&e)));
 	ROS_INFO("RealSense ROS v%s", REALSENSE_ROS_VERSION_STR);
-	ROS_INFO("Running with LibRealSense v%s", RS2_API_VERSION_STR);
+	ROS_INFO("Built with LibRealSense v%s", RS2_API_VERSION_STR);
+	ROS_INFO_STREAM("Running with LibRealSense v" << running_librealsense_version);
+	if (RS2_API_VERSION_STR != running_librealsense_version)
+	{
+		ROS_WARN("***************************************************");
+		ROS_WARN("** running with a different librealsense version **");
+		ROS_WARN("** than the one the wrapper was compiled with!   **");
+		ROS_WARN("***************************************************");
+	}
 
 	auto severity = rs2_log_severity::RS2_LOG_SEVERITY_WARN;
 	tryGetLogSeverity(severity);
@@ -161,6 +180,18 @@ void RealSenseNodeFactory::getDevice(rs2::device_list list)
 				msg += " is NOT found. Will Try again.";
 				ROS_ERROR_STREAM(msg);
 			}
+			else
+			{
+				if (_device.supports(RS2_CAMERA_INFO_USB_TYPE_DESCRIPTOR))
+				{
+					std::string usb_type = _device.get_info(RS2_CAMERA_INFO_USB_TYPE_DESCRIPTOR);
+					ROS_INFO_STREAM("Device USB type: " << usb_type);
+					if (usb_type.find("2.") != std::string::npos)
+					{
+						ROS_WARN_STREAM("Device " << _serial_no << " is connected using a " << usb_type << " port. Reduced performance is expected.");
+					}
+				}
+			}
 		}
 	}
 
@@ -210,6 +241,17 @@ void RealSenseNodeFactory::change_device_callback(rs2::event_information& info)
 	}
 }
 
+bool RealSenseNodeFactory::toggle_sensor_callback(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res)
+{
+  if (req.data)
+    ROS_INFO_STREAM("toggling sensor : ON");
+  else
+    ROS_INFO_STREAM("toggling sensor : OFF");
+  _realSenseNode->toggleSensors(req.data);
+  res.success=true;
+  return true;
+}
+
 void RealSenseNodeFactory::onInit()
 {
 	try
@@ -224,9 +266,10 @@ void RealSenseNodeFactory::onInit()
 		privateNh.param("serial_no", _serial_no, std::string(""));
     	privateNh.param("usb_port_id", _usb_port_id, std::string(""));
     	privateNh.param("device_type", _device_type, std::string(""));
-
+    toggle_sensor_srv = nh.advertiseService("enable", &RealSenseNodeFactory::toggle_sensor_callback, this);
 		std::string rosbag_filename("");
 		privateNh.param("rosbag_filename", rosbag_filename, std::string(""));
+
 		if (!rosbag_filename.empty())
 		{
 			{
@@ -304,7 +347,10 @@ void RealSenseNodeFactory::StartDevice()
 	case RS430_MM_RGB_PID:
 	case RS435_RGB_PID:
 	case RS435i_RGB_PID:
+	case RS455_PID:
+	case RS465_PID:
 	case RS_USB2_PID:
+	case RS_L515_PID_PRE_PRQ:
 	case RS_L515_PID:
 		_realSenseNode = std::unique_ptr<BaseRealSenseNode>(new BaseRealSenseNode(nh, privateNh, _device, _serial_no));
 		break;
