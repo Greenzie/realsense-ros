@@ -1,4 +1,10 @@
-ros-melodic-realsense2-camera (102.2.21-bionic1) bionic; urgency=medium
+ros-melodic-realsense2-camera (102.2.22-bionic1) bionic; urgency=medium
+
+  * Update to 2.2.22 to support librealsense2 2.42.0
+
+ -- Charles Brian Quinn <cbq@greenzie.com>  Mon, 01 Mar 2021 16:57:40 -0500
+
+ros-melodic-realsense2-camera (102.2.22-bionic1) bionic; urgency=medium
 
   * Update to 2.2.21 to support librealsense2 2.41.0
   * Remove dkms dependencies
