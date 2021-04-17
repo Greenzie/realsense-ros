@@ -4,8 +4,7 @@ Priority: optional
 Maintainer: Charles Brian Quinn <cbq@greenzie.com>
 Build-Depends: debhelper (>= 11), ros-melodic-ddynamic-reconfigure,
  ros-melodic-catkin, ros-melodic-cmake-modules,
- librealsense2, librealsense2-udev-rules, librealsense2-dkms,
- librealsense2-dev
+ librealsense2, librealsense2-udev-rules
 Standards-Version: 4.1.3
 Homepage: https://github.com/Greenzie/realsense-ros
 Vcs-Git: https://github.com/Greenzie/realsense-ros.git
