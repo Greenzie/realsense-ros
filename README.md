@@ -1,51 +1,88 @@
 # Fork of ROS Wrapper for Greenzie to install more performant version
 
-The only difference between this fork and the upstream is that we build against librealsense2, librealsense2-dkms, librealsense-udev-rules, and librealsense2-dev to create our own package with a very high version number to ensure ours is installed over any alternatives. The upstream community ROS package ("ROS distribution") uses an "older" and less performant library (see below).
+We maintain this fork for several reasons. The most notable is from the original README below:
 
-To begin, add
-[Intel's librealsense Debian package server](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md#installing-the-packages)
-to your sources
+> The version of librealsense2 is almost always behind the one availeable in RealSense™ official repository.
+> librealsense2 is not built to use native v4l2 driver but the less stable RS-USB protocol. That is because the last is more general and operational on a larger variety of platforms.
+
+These upstream builds are ros specific distributions, i.e. `ros-melodic-librealsense2` which contain the librealsense2 underlying driver.
+
+There are two ways to get this librealsense2 underlying driver.
+
+option 1: Using pre-build packages or option 2: Configuring and building from the source code
+
+See: https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md for more details.
+
+Note, even intel recommends using the native v4l2 also known as the DKMS (dynamic kernel module system) version over the less performant RS-USB:
+
+> While we strongly recommend to use DKMS package whenever possible, there are certain cases where installing and patching the system manually is necessary
+
+And then they spell out several reasons exactly why we can't use it and must "install and patch the system manually"
+
+So, since, we can't use pre-built ros specific distribution packages (`ros-melodic-librealsense2`), because:
+
+ * a) it's less performant, and
+ * b) it gets updated and built against an upgraded librealsense2 (which we also fork and maintain)
+ * c) they are built against ros-dynamic-reconfigure, too which can get updated
+ * d) some new versions require firmware updates of cameras (which is not done automatically)
+
+Because of that, we maintain our own versions of librealsense2 and the ROS Wrappers, so we can properly upgrade all software and hardware at one time.
+
+The other key differences between this fork and upstream are:
+
+* we debianize and version bump a very high number (add 100) to the version, so if the version we're building against is 2.22.2, then our fork is 102.22.2, preventing an automatic package from upstream from sneaking in
+* we removed the build dependency against `librealsense2-dkms` and `librealsense2-dev` since it doesn't really need them to compile and build a debian
+
+## Automated Update, Build, and Deploy Process
 
 ### Update:
 
-    ./update.sh
+```
+./update.sh
+```
 
 ### Build 
 
-    ./build.sh
+```
+./build.sh
+```
 
 ### Deploy
 
+```
 deploy `alldebs.tar`
+```
 
-### Manual Update and Build Process
+## Manual Update, Build, and Deploy Process
 
-To build and update our version:
+### Update
 
-Add the upstream and fetch:
+Add the upstream (if don't have already) and fetch:
 
 ```
 git add upstream https://github.com/IntelRealSense/realsense-ros.git
 git fetch upstream
 ```
 
-Check out this forks local development branch (they don't use master):
+Now, you can either use development or a release version, aka a tag (preferred).
+
+To merge in updates from the fork's development branch (upstream uses that as default branch):
 
 ```
 git merge upstream/development
 ```
 
-Make sure you have the `librealsense2-dev` installed (and of course the ones below).
-
-Grab the same debs you're building against:
+To merge in updates from a release version, aka a tag:
 
 ```
-apt download librealsense2
-apt download librealsense2-dkms
-apt download librealsense2-udev-rules
+git fetch --tags origin
+git tag --list
+git merge tags/2.2.22
 ```
 
-To build we use our circleci as a reference and our own debian folder:
+### Build
+
+To build we use our circleci as a reference and our the debian build instructions that exist in this fork:
 
 ```
 DEB_BUILD_OPTIONS="noddebs" debuild --no-tgz-check -b --no-sign --lintian-opts --suppress-tags dir-or-file-in-opt
@@ -58,7 +95,11 @@ ros-melodic-realsense2-camera_102.2.13-bionic1_amd64.deb
 ros-melodic-realsense2-description_102.2.13-bionic1_amd64.deb
 ```
 
-Now put all these on our apt server for distribution.
+### Deploy
+
+Copy these up to the packages server.
+
+The rest of the file contains the stock README.
 
 # ROS Wrapper for Intel&reg; RealSense&trade; Devices
 These are packages for using Intel RealSense cameras (D400 series SR300 camera and T265 Tracking Module) with ROS.
