@@ -1,7 +1,7 @@
 Source: ros-melodic-realsense2-camera
 Section: embedded
 Priority: optional
-Maintainer: nick black <dankamongmen@gmail.com>
+Maintainer: Charles Brian Quinn <cbq@greenzie.com>
 Build-Depends: debhelper (>= 11), ros-melodic-ddynamic-reconfigure,
  ros-melodic-catkin, ros-melodic-cmake-modules,
  librealsense2, librealsense2-udev-rules, librealsense2-dkms,

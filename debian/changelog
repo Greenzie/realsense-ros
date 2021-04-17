@@ -1,3 +1,9 @@
+ros-melodic-realsense2-camera (102.2.22-bionic3) bionic; urgency=medium
+
+  * Recompiling again, version bump for dynamic-reconfigure ABI breakage
+
+ -- Charles Brian Quinn <cbq@greenzie.com>  Wed, 03 Mar 2021 17:18:52 -0500
+
 ros-melodic-realsense2-camera (102.2.22-bionic2) bionic; urgency=medium
 
   * Recompile against ros-melodic-ddynamic-reconfigure 0.3.2-1bionic.20201028.191725
