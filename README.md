@@ -5,7 +5,7 @@ We maintain this fork for several reasons. The most notable is from the original
 > The version of librealsense2 is almost always behind the one availeable in RealSense™ official repository.
 > librealsense2 is not built to use native v4l2 driver but the less stable RS-USB protocol. That is because the last is more general and operational on a larger variety of platforms.
 
-These upstream builds are ros specific distributions, i.e. `ros-melodic-librealsense2` which contain the librealsense2 underlying driver.
+These upstream builds are ros specific distributions, i.e. `ros-noetic-librealsense2` which contain the librealsense2 underlying driver.
 
 There are two ways to get this librealsense2 underlying driver.
 
@@ -19,7 +19,7 @@ Note, even intel recommends using the native v4l2 also known as the DKMS (dynami
 
 And then they spell out several reasons exactly why we can't use it and must "install and patch the system manually"
 
-So, since, we can't use pre-built ros specific distribution packages (`ros-melodic-librealsense2`), because:
+So, since, we can't use pre-built ros specific distribution packages (`ros-noetic-librealsense2`), because:
 
  * a) it's less performant, and
  * b) it gets updated and built against an upgraded librealsense2 (which we also fork and maintain)
@@ -91,8 +91,8 @@ DEB_BUILD_OPTIONS="noddebs" debuild --no-tgz-check -b --no-sign --lintian-opts -
 After building, back out a directory and your debs are there:
 
 ```
-ros-melodic-realsense2-camera_102.2.13-bionic1_amd64.deb
-ros-melodic-realsense2-description_102.2.13-bionic1_amd64.deb
+ros-noetic-realsense2-camera_<VERSION>_amd64.deb
+ros-noetic-realsense2-description_<VERSION>_amd64.deb
 ```
 
 ### Deploy

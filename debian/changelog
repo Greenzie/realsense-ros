@@ -1,3 +1,9 @@
+ros-noetic-realsense2-camera (2.3.2-greenzie-focal) focal; urgency=medium
+
+  * Ported Changed from Melodic to Noetic
+
+ -- Kristian Kabbabe <kristian@greenzie.com>  Fri, 28 Jan 2022 15:29:23 -0500
+
 ros-melodic-realsense2-camera (102.2.22-bionic3) bionic; urgency=medium
 
   * Recompiling again, version bump for dynamic-reconfigure ABI breakage

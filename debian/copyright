@@ -1,5 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: ros-melodic-realsense2-camera
+Upstream-Name: ros-noetic-realsense2-camera
 Source: <url://example.com>
 
 Files: *
