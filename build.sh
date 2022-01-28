@@ -5,20 +5,19 @@ set -eo pipefail
 realsense_dir=$(pwd)
 
 echo "Uninstalling any existing realsense libraries..."
-sudo apt-get remove -y librealsense2 librealsense2-dev librealsense2-dkms
+sudo apt-get remove -y librealsense2 librealsense2-dkms
 { sudo apt-get remove -y ros-noetic-realsense2-camera ros-noetic-realsense2-description ros-noetic-librealsense2; } || { echo; }
 
 echo "Download up-to-date librealsense2..."
 { echo "removing old ./artifacts..." && rm -rf ./artifacts; } || { echo "./artifacts/ does not exist... creating."; }
 mkdir artifacts
 cd artifacts
-sudo apt-get download librealsense2 librealsense2-dkms librealsense2-udev-rules librealsense2-dev
+sudo apt-get download librealsense2 librealsense2-dkms librealsense2-udev-rules
 
 echo "Installing up-to-date librealsense2..."
 sudo apt-get install -y ./librealsense2-udev-rules_*.deb
 sudo apt-get install -y ./librealsense2-dkms_*.deb
 sudo apt-get install -y ./librealsense2_*.deb
-sudo apt-get install -y ./librealsense2-dev_*.deb
 cd $realsense_dir
 
 build_dir=$(mktemp -d)
