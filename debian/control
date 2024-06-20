@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 11),
     ros-noetic-ddynamic-reconfigure,
     ros-noetic-catkin,
     ros-noetic-cmake-modules,
+    libeigen3-dev,
     librealsense2 (=2.50.0-greenzie-focal),
     librealsense2-udev-rules
 Standards-Version: 4.1.3
