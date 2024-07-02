@@ -9,6 +9,8 @@
 #include <dynamic_reconfigure/Reconfigure.h>
 #include <dynamic_reconfigure/Config.h>
 
+#include <librealsense2/rs_advanced_mode.hpp>
+
 using namespace realsense2_camera;
 using namespace ddynamic_reconfigure;
 
@@ -592,6 +594,31 @@ void BaseRealSenseNode::registerDynamicOption(ros::NodeHandle& nh, rs2::options 
         }
         
     }
+    
+
+    if (_dev.is<rs400::advanced_mode>()) {
+        std::string option_name = "ds_second_peak_threshold";
+        auto adv = _dev.as<rs400::advanced_mode>();
+        auto dc_group = adv.get_depth_control();
+
+        int option_value = dc_group.deepSeaSecondPeakThreshold;
+        if (nh1.param(option_name, option_value, option_value))
+        {
+            dc_group.deepSeaSecondPeakThreshold = option_value;
+            adv.set_depth_control(dc_group);
+        }
+        ddynrec->registerVariable<int>(
+        option_name, option_value,
+        [this](int new_value) { 
+            auto adv = this->_dev.as<rs400::advanced_mode>();
+            auto dc_group = adv.get_depth_control();
+            dc_group.deepSeaSecondPeakThreshold = new_value;
+            adv.set_depth_control(dc_group);
+        },
+        "Controls the second peak threshold in the stereo matching algorithm.", 0, 1023);
+    }
+
+
     ddynrec->publishServicesTopics();
     _ddynrec.push_back(ddynrec);
 }
