@@ -596,7 +596,7 @@ void BaseRealSenseNode::registerDynamicOption(ros::NodeHandle& nh, rs2::options 
     }
     
 
-    if (_dev.is<rs400::advanced_mode>()) {
+    if (_dev.is<rs400::advanced_mode>() && module_name == "stereo_module") {
         std::string option_name = "ds_second_peak_threshold";
         auto adv = _dev.as<rs400::advanced_mode>();
         auto dc_group = adv.get_depth_control();
