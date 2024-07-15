@@ -1,3 +1,9 @@
+ros-noetic-realsense2-camera (2.3.2-greenzie-focal2) focal; urgency=medium
+
+  * Added dynamic reconfigure for ds_second_peak_threshold
+
+ -- Philip Case <philip@greenzie.com>  Thu, 11 Jul 2024 12:00:40 -0500
+
 ros-noetic-realsense2-camera (2.3.2-greenzie-focal) focal; urgency=medium
 
   * Ported Changed from Melodic to Noetic
