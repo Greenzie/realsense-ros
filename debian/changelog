@@ -1,3 +1,9 @@
+ros-noetic-realsense2-camera (2.3.2.1-greenzie-focal) focal; urgency=medium
+
+  * New version scheme with a fourth version number to indicate Greenzie changes.
+
+ -- Esteban Martinena <esteban@greenzie.com>  Thu, 19 Jul 2024 12:00:30 -0500
+
 ros-noetic-realsense2-camera (2.3.2-greenzie-focal2) focal; urgency=medium
 
   * Added dynamic reconfigure for ds_second_peak_threshold
