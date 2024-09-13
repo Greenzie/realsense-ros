@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8.3)
 project(realsense2_camera)
 add_compile_options(-std=c++11)
 
+find_package( OpenCV REQUIRED)
+
 option(BUILD_WITH_OPENMP "Use OpenMP" OFF)
 option(SET_USER_BREAK_AT_STARTUP "Set user wait point in startup (for debug)" OFF)
 
@@ -88,6 +90,7 @@ include_directories(
     include
     ${realsense2_INCLUDE_DIR}
     ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
     )
 
 # RealSense ROS Node
@@ -121,6 +124,7 @@ target_link_libraries(${PROJECT_NAME}
     ${realsense2_LIBRARY}
     ${catkin_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${OpenCV_LIBRARIES}
     )
 
 if(WIN32)
