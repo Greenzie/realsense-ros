@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 11),
     ros-noetic-ddynamic-reconfigure,
     ros-noetic-catkin,
     ros-noetic-cmake-modules,
-    librealsense2 (=2.50.0-greenzie-focal),
+    librealsense2,
     librealsense2-udev-rules
 Standards-Version: 4.1.3
 Homepage: https://github.com/Greenzie/realsense-ros
@@ -28,7 +28,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  ros-noetic-std-msgs,
  ros-noetic-diagnostic-updater,
  libimage-transport-dev,
- librealsense2 (=2.50.0-greenzie-focal),
+ librealsense2,
  librealsense2-udev-rules
 Description: Intel RealSense camera ROS package
  These are packages for using Intel RealSense cameras (D400 series
